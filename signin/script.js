@@ -23,7 +23,7 @@ function loginUser() {
 
     if (user) {
         messageElement.textContent = 'Login successful!';
-        window.location.href ='../dashboard/dashboard.html';
+        window.location.href ='dashboard.html';
         // Redirect to the apps page or perform further actions
     } else {
         messageElement.textContent = 'Invalid username or password';
