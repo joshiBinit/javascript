@@ -1,30 +1,102 @@
-const users = [];
+// Load users from local storage or initialize an empty array
+const users = JSON.parse(localStorage.getItem('users')) || [];
+
+// Add event listeners for the Registration form
+document.getElementById('regUsername').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        document.getElementById('regPassword').focus(); // Move focus to password field
+    }
+});
+
+document.getElementById('regPassword').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        registerUser(); // Call register function
+    }
+});
+
+// Add event listeners for Login form
+document.getElementById('loginUsername').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        document.getElementById('loginPassword').focus(); // Move focus to password field
+    }
+});
+
+document.getElementById('loginPassword').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        loginUser(); // Call login function
+    }
+});
 
 function registerUser() {
-    const username = document.getElementById('regUsername').value;
-    const password = document.getElementById('regPassword').value;
+    const usernameField = document.getElementById('regUsername');
+    const passwordField = document.getElementById('regPassword');
     const messageElement = document.getElementById('regMessage');
 
-    if (users.some(user => user.username === username)) {
-        messageElement.textContent = 'Username already exists!';
-        return;
+    // Clear previous required indications
+    usernameField.classList.remove('required');
+    passwordField.classList.remove('required');
+
+    // Check if username or password is empty
+    let hasError = false;
+    if (!usernameField.value) {
+        usernameField.classList.add('required'); // Add required class
+        hasError = true; // Set error flag
+    }
+    if (!passwordField.value) {
+        passwordField.classList.add('required'); // Add required class
+        hasError = true; // Set error flag
     }
 
-    users.push({ username, password });
+    if (hasError) {
+        return; // Exit the function if validation fails
+    }
+
+    // Check if the username already exists
+    if (users.some(user => user.username === usernameField.value)) {
+        messageElement.textContent = 'Username already exists!';
+        return; // Exit if username is taken
+    }
+
+    // Register the new user
+    users.push({ username: usernameField.value, password: passwordField.value });
+    localStorage.setItem('users', JSON.stringify(users)); // Save users to local storage
     messageElement.textContent = 'Registration successful!';
+
+    // Clear the input fields
+    usernameField.value = '';
+    passwordField.value = '';
 }
 
 function loginUser() {
-    const username = document.getElementById('loginUsername').value;
-    const password = document.getElementById('loginPassword').value;
+    const usernameField = document.getElementById('loginUsername');
+    const passwordField = document.getElementById('loginPassword');
     const messageElement = document.getElementById('loginMessage');
 
-    const user = users.find(user => user.username === username && user.password === password);
+    // Clear previous required indications
+    usernameField.classList.remove('required');
+    passwordField.classList.remove('required');
+
+    // Check if username or password is empty
+    let hasError = false;
+    if (!usernameField.value) {
+        usernameField.classList.add('required'); // Add required class
+        hasError = true; // Set error flag
+    }
+    if (!passwordField.value) {
+        passwordField.classList.add('required'); // Add required class
+        hasError = true; // Set error flag
+    }
+
+    if (hasError) {
+        return; // Exit the function if validation fails
+    }
+
+    // Check for user login
+    const user = users.find(user => user.username === usernameField.value && user.password === passwordField.value);
 
     if (user) {
         messageElement.textContent = 'Login successful!';
-        window.location.href ='../dashboard/dashboard.html';
-        // Redirect to the apps page or perform further actions
+        window.location.href = '../dashboard/dashboard.html'; // Redirect to the dashboard
     } else {
         messageElement.textContent = 'Invalid username or password';
     }

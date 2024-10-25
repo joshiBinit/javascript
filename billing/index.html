@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Software</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Billing Software</h1>
+    
+    <div>
+        <h2>Add Customer</h2>
+        <input type="text" id="customerName" placeholder="Customer Name" required>
+        <input type="text" id="customerEmail" placeholder="Customer Email" required>
+        <button id="addCustomerBtn">Add Customer</button>
+    </div>
+
+    <div>
+        <h2>Create Invoice</h2>
+        <input type="text" id="invoiceCustomer" placeholder="Customer Name" required>
+        <input type="text" id="invoiceAmount" placeholder="Invoice Amount" required>
+        <button id="createInvoiceBtn">Create Invoice</button>
+    </div>
+
+    <h2>Invoices</h2>
+    <div id="invoicesList"></div>
+    
+    <div>
+        <h2>Filter Invoices</h2>
+        <input type="text" id="filterAmount" placeholder="Minimum Amount">
+        <button id="filterInvoicesBtn">Filter Invoices</button>
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+</body>
+</html>

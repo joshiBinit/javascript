@@ -1,34 +1,24 @@
-function createCounter(){
-    let count = 0;
+// Select the counter value element and buttons
+const counterValueElement = document.getElementById('counterValue');
+const incrementButton = document.getElementById('incrementButton');
+const decrementButton = document.getElementById('decrementButton');
 
-    return{
-        increment : function(){
-            count += 1;
-            return count;
-        },
+// Initialize the counter
+let counter = 0;
 
-        decrement : function(){
-            count -= 1;
-            return count;
-        },
+// Update the displayed counter value
+const updateCounterDisplay = () => {
+    counterValueElement.textContent = counter;
+};
 
-        reset : function(){
-            count = 0;
-            return count;
-        },
+// Add event listener for the increment button
+incrementButton.addEventListener('click', function() {
+    counter++;
+    updateCounterDisplay();
+});
 
-        getCount: function(){
-            return count;
-        }
-    };
-}
-
-
-const counter = createCounter();
-
-console.log(counter.increment());
-console.log(counter.decrement());
-console.log(counter.increment());
-console.log(counter.increment());
-console.log(counter.increment());
-console.log(counter.reset());
+// Add event listener for the decrement button
+decrementButton.addEventListener('click', function() {
+    counter--;
+    updateCounterDisplay();
+});
