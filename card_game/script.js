@@ -1,20 +1,10 @@
-const cardImages = [
-    "https://deckofcardsapi.com/static/img/AS.png", 
-    "https://deckofcardsapi.com/static/img/2S.png", 
-    "https://deckofcardsapi.com/static/img/3S.png", 
-    "https://deckofcardsapi.com/static/img/4S.png", 
-    "https://deckofcardsapi.com/static/img/5S.png", 
-    "https://deckofcardsapi.com/static/img/6S.png", 
-    "https://deckofcardsapi.com/static/img/7S.png", 
-    "https://deckofcardsapi.com/static/img/8S.png", 
-    "https://deckofcardsapi.com/static/img/9S.png", 
-    "https://deckofcardsapi.com/static/img/10S.png", 
-    "https://deckofcardsapi.com/static/img/JS.png", 
-    "https://deckofcardsapi.com/static/img/QS.png", 
-    "https://deckofcardsapi.com/static/img/KS.png", 
-    "https://deckofcardsapi.com/static/img/AH.png", 
-    "https://deckofcardsapi.com/static/img/2H.png"
-];
+const suits = ['S', 'H', 'D', 'C']; // Spades, Hearts, Diamonds, Clubs
+const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+
+// Generate card image URLs
+const cardImages = suits.flatMap(suit => 
+    ranks.map(rank => `https://deckofcardsapi.com/static/img/${rank}${suit}.png`)
+);
 
 // Duplicate and shuffle card images
 const cards = [...cardImages, ...cardImages].sort(() => 0.5 - Math.random());
